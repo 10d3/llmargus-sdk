@@ -1,0 +1,47 @@
+{
+  "name": "llmargus",
+  "version": "0.1.0",
+  "type": "module",
+  "license": "MIT",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "test:real": "tsx scripts/test-real.ts",
+    "benchmark": "tsx scripts/benchmark.ts"
+  },
+  "peerDependencies": {
+    "@anthropic-ai/sdk": ">=0.20",
+    "openai": ">=4"
+  },
+  "peerDependenciesMeta": {
+    "@anthropic-ai/sdk": {
+      "optional": true
+    },
+    "openai": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@ai-sdk/anthropic": "^3.0.84",
+    "@ai-sdk/openai": "^3.0.71",
+    "@anthropic-ai/sdk": "^0.104.1",
+    "@types/node": "^20.19.41",
+    "@workspace/typescript-config": "workspace:*",
+    "ai": "^6.0.204",
+    "openai": "^6.42.0",
+    "tsup": "^8.0.0",
+    "tsx": "^4.22.4",
+    "typescript": "^5"
+  }
+}
