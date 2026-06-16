@@ -62,6 +62,11 @@ export function wrapVercel<T extends WrappableVercelAI>(ai: T, defaults?: CostCo
 function detectProvider(model: LanguageModel): Provider {
   const p = model.provider.toLowerCase();
   if (p.startsWith("anthropic")) return "anthropic";
+  if (p.startsWith("openrouter")) return "openrouter";
+  if (p.startsWith("google")) return "google";
+  if (p.startsWith("mistral")) return "mistral";
+  if (p.startsWith("groq")) return "groq";
+  if (p.startsWith("cohere")) return "cohere";
   return "openai"; // covers openai, azure-openai, openai-compatible, etc.
 }
 

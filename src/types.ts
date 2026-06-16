@@ -1,4 +1,4 @@
-export type Provider = "openai" | "anthropic";
+export type Provider = "openai" | "anthropic" | "openrouter" | "google" | "mistral" | "groq" | "cohere";
 
 // Attribution tags — can be set at wrap-time, per-request, or per-call.
 export type CostContext = {
