@@ -6,7 +6,7 @@ import { wrapVercel, type WrappableVercelAI } from "./proxy/vercel.js";
 import type { CostContext, CostEvent, LLMargusConfig } from "./types.js";
 
 const DEFAULTS = {
-  ingestUrl: "https://llmargus.io/api/ingest",
+  ingestUrl: "https://llmargus-web.vercel.app/api/ingest",
   flushIntervalMs: 2000,
   maxBatchSize: 50,
 } as const;
