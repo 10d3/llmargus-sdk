@@ -3,7 +3,7 @@
 > Track LLM costs per user, per feature — in one line of code.
 
 [![npm](https://img.shields.io/npm/v/llmargus)](https://www.npmjs.com/package/llmargus)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![License: EL2](https://img.shields.io/badge/License-Elastic_2.0-blue.svg)](LICENSE)
 
 `llmargus` wraps your OpenAI or Anthropic client and silently tracks every call — tokens in, tokens out, latency, streaming or not — then ships the data to your [LLMargus](https://llmargus.io) dashboard fire-and-forget with **zero added latency**.
 
@@ -156,4 +156,14 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
-MIT
+This SDK is licensed under the **[Elastic License 2.0](LICENSE)**.
+
+**You can:**
+- ✅ Use it freely in your own apps and businesses
+- ✅ Modify it and contribute back
+- ✅ Integrate it into commercial products
+
+**You cannot:**
+- ❌ Offer it as a hosted or managed service to others
+- ❌ Build and sell a competing LLM cost-tracking platform using this code
+- ❌ Remove or obscure the copyright notices
