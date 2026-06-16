@@ -68,7 +68,7 @@ Wraps a block of async code and automatically tags every LLM call inside it.
 ```ts
 await llmargus.withContext({ userId: "user_123", feature: "summarizer" }, async () => {
   await openai.chat.completions.create({ ... })
-  // ↑ automatically tagged with userId + feature
+  // automatically tagged with userId + feature
 })
 ```
 
@@ -80,7 +80,7 @@ const openai = llmargus.wrap(new OpenAI(), { feature: "chat" })
 
 ### Option 3: manual `track()`
 
-For providers the SDK doesn't support yet, or raw `fetch` calls:
+For providers the SDK does not support yet, or raw `fetch` calls:
 
 ```ts
 llmargus.track({
@@ -158,12 +158,11 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 This SDK is licensed under the **[Elastic License 2.0](LICENSE)**.
 
-**You can:**
-- ✅ Use it freely in your own apps and businesses
-- ✅ Modify it and contribute back
-- ✅ Integrate it into commercial products
+**Permitted:**
+- Use in your own applications and businesses, including commercial products
+- Modification and contribution back to this repository
 
-**You cannot:**
-- ❌ Offer it as a hosted or managed service to others
-- ❌ Build and sell a competing LLM cost-tracking platform using this code
-- ❌ Remove or obscure the copyright notices
+**Not permitted:**
+- Offering this software to third parties as a hosted or managed service
+- Building and selling a competing LLM cost-tracking platform using this code
+- Removing or obscuring copyright notices
