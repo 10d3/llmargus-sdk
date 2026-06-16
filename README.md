@@ -2,8 +2,25 @@
 
 > Track LLM costs per user, per feature — in one line of code.
 
-[![npm](https://img.shields.io/npm/v/llmargus)](https://www.npmjs.com/package/llmargus)
-[![License: EL2](https://img.shields.io/badge/License-Elastic_2.0-blue.svg)](LICENSE)
+[![GitHub Stars](https://www.shieldcn.dev/github/stars/10d3/llmargus-sdk.svg?variant=secondary&size=sm&font=jetbrains-mono)](https://github.com/10d3/llmargus-sdk)
+[![GitHub Forks](https://www.shieldcn.dev/github/forks/10d3/llmargus-sdk.svg?variant=secondary&size=sm&font=jetbrains-mono)](https://github.com/10d3/llmargus-sdk)
+[![Last commit](https://www.shieldcn.dev/github/last-commit/10d3/llmargus-sdk.svg?variant=secondary&size=sm&font=jetbrains-mono)](https://github.com/10d3/llmargus-sdk/commits/main)
+[![Contributors](https://www.shieldcn.dev/github/contributors/10d3/llmargus-sdk.svg?theme=emerald&size=sm&font=jetbrains-mono)](https://github.com/10d3/llmargus-sdk/graphs/contributors)
+[![Open issues](https://www.shieldcn.dev/github/open-issues/10d3/llmargus-sdk.svg?variant=secondary&size=sm&font=jetbrains-mono)](https://github.com/10d3/llmargus-sdk/issues)
+[![Release](https://www.shieldcn.dev/github/release/10d3/llmargus-sdk.svg?size=sm&font=jetbrains-mono)](https://github.com/10d3/llmargus-sdk/releases)
+[![License](https://www.shieldcn.dev/github/license/10d3/llmargus-sdk.svg?variant=ghost&size=sm&font=jetbrains-mono)](LICENSE)
+
+[![npm Version](https://www.shieldcn.dev/npm/llmargus.svg?variant=secondary&size=sm&font=jetbrains-mono)](https://www.npmjs.com/package/llmargus)
+[![npm Weekly Downloads](https://www.shieldcn.dev/npm/dw/llmargus.svg?size=sm&font=jetbrains-mono)](https://www.npmjs.com/package/llmargus)
+[![npm Total Downloads](https://www.shieldcn.dev/npm/dt/llmargus.svg?variant=secondary&size=sm&font=jetbrains-mono)](https://www.npmjs.com/package/llmargus)
+[![npm Types](https://www.shieldcn.dev/npm/types/llmargus.svg?theme=blue&size=sm&font=jetbrains-mono)](https://www.npmjs.com/package/llmargus)
+[![npm Node](https://www.shieldcn.dev/npm/node/llmargus.svg?variant=secondary&size=sm&font=jetbrains-mono)](https://www.npmjs.com/package/llmargus)
+
+[![Language · TypeScript](https://www.shieldcn.dev/badge/Language-TypeScript-3178C6.svg?logo=typescript&variant=branded&size=sm&font=jetbrains-mono)](https://www.typescriptlang.org)
+[![AI SDK · OpenAI](https://www.shieldcn.dev/badge/Stack-AI_SDK_%C2%B7_OpenAI-412991.svg?logo=openai&variant=branded&size=sm&font=jetbrains-mono)](https://platform.openai.com)
+[![AI SDK · Anthropic](https://www.shieldcn.dev/badge/Stack-AI_SDK_%C2%B7_Anthropic-D97757.svg?logo=anthropic&variant=branded&size=sm&font=jetbrains-mono)](https://anthropic.com)
+[![AI SDK](https://www.shieldcn.dev/badge/Stack-AI_SDK-000000.svg?logo=vercel&variant=branded&size=sm&font=jetbrains-mono)](https://sdk.vercel.ai)
+[![Dual package ESM+CJS](https://www.shieldcn.dev/badge/Dual_package-ESM%2BCJS-2563eb.svg?variant=secondary&size=sm&font=jetbrains-mono)](https://www.npmjs.com/package/llmargus)
 
 `llmargus` wraps your OpenAI or Anthropic client and silently tracks every call — tokens in, tokens out, latency, streaming or not — then ships the data to your [LLMargus](https://llmargus.io) dashboard fire-and-forget with **zero added latency**.
 
@@ -123,7 +140,7 @@ for await (const chunk of stream) {
 | Option | Type | Default | Description |
 |---|---|---|---|
 | `apiKey` | `string` | **required** | Your LLMargus API key |
-| `ingestUrl` | `string` | `https://llmargus.io/api/ingest` | Custom ingest endpoint |
+| `ingestUrl` | `string` | `https://llmargus-web.vercel.app/api/ingest` | Custom ingest endpoint |
 | `flushIntervalMs` | `number` | `2000` | How often to flush the event queue (ms) |
 | `maxBatchSize` | `number` | `50` | Max events per batch before early flush |
 
