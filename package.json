@@ -1,6 +1,6 @@
 {
   "name": "llmargus",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "type": "module",
   "license": "Elastic-2.0",
   "main": "./dist/index.cjs",
