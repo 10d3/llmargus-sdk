@@ -22,7 +22,7 @@
 [![AI SDK](https://www.shieldcn.dev/badge/Stack-AI_SDK-000000.svg?logo=vercel&variant=branded&size=sm&font=jetbrains-mono)](https://sdk.vercel.ai)
 [![Dual package ESM+CJS](https://www.shieldcn.dev/badge/Dual_package-ESM%2BCJS-2563eb.svg?variant=secondary&size=sm&font=jetbrains-mono)](https://www.npmjs.com/package/llmargus)
 
-`llmargus` wraps your OpenAI or Anthropic client and silently tracks every call — tokens in, tokens out, latency, streaming or not — then ships the data to your [LLMargus](https://llmargus.io) dashboard fire-and-forget with **zero added latency**.
+`llmargus` wraps your OpenAI or Anthropic client and silently tracks every call — tokens in, tokens out, latency, streaming or not — then ships the data to your [LLMargus](https://llmargus.com) dashboard fire-and-forget with **zero added latency**.
 
 ---
 
@@ -44,9 +44,9 @@ yarn add llmargus
 
 ```ts
 import OpenAI from "openai"
-import llmargus from "llmargus"
+import { llmargus } from "llmargus"
 
-llmargus.init({ apiKey: "lmg_..." })
+llmargus.init({ apiKey: "llmg_..." })
 
 const openai = llmargus.wrap(new OpenAI())
 
@@ -61,9 +61,9 @@ const response = await openai.chat.completions.create({
 
 ```ts
 import Anthropic from "@anthropic-ai/sdk"
-import llmargus from "llmargus"
+import { llmargus } from "llmargus"
 
-llmargus.init({ apiKey: "lmg_..." })
+llmargus.init({ apiKey: "llmg_..." })
 
 const anthropic = llmargus.wrap(new Anthropic())
 
@@ -74,13 +74,31 @@ const response = await anthropic.messages.create({
 })
 ```
 
+### Vercel AI SDK
+
+```ts
+import * as ai from "ai"
+import { llmargus } from "llmargus"
+
+llmargus.init({ apiKey: "llmg_..." })
+
+const { generateText, streamText } = llmargus.wrapVercel(ai, { feature: "chat" })
+
+// Per-call context via the llmargus option (stripped before forwarding to the provider)
+const result = await generateText({
+  model: openai("gpt-4o-mini"),
+  prompt: "Hello!",
+  llmargus: { userId: user.id },
+})
+```
+
 ---
 
 ## Attribution — tag by user & feature
 
 ### Option 1: `withContext` (recommended for request handlers)
 
-Wraps a block of async code and automatically tags every LLM call inside it.
+Wraps a block of async code and automatically tags every LLM call inside it. Uses `AsyncLocalStorage` — works across `await`s and nested calls.
 
 ```ts
 await llmargus.withContext({ userId: "user_123", feature: "summarizer" }, async () => {
@@ -106,6 +124,7 @@ llmargus.track({
   tokensIn: 500,
   tokensOut: 120,
   latencyMs: 800,
+  ttftMs: null,
   stream: false,
   success: true,
   ts: Date.now(),
@@ -139,14 +158,18 @@ for await (const chunk of stream) {
 
 | Option | Type | Default | Description |
 |---|---|---|---|
-| `apiKey` | `string` | **required** | Your LLMargus API key |
-| `ingestUrl` | `string` | `https://llmargus-web.vercel.app/api/ingest` | Custom ingest endpoint |
+| `apiKey` | `string` | **required** | Your `llmg_...` API key |
+| `ingestUrl` | `string` | `https://llmargus.com/api/ingest` | Custom ingest endpoint |
 | `flushIntervalMs` | `number` | `2000` | How often to flush the event queue (ms) |
 | `maxBatchSize` | `number` | `50` | Max events per batch before early flush |
 
 ### `llmargus.wrap(client, defaults?)`
 
-Returns a proxied version of the client. Accepts an optional `{ userId, feature }` default context.
+Returns an instrumented version of the client. Supports `OpenAI` and `Anthropic` instances. Accepts an optional `CostContext` default.
+
+### `llmargus.wrapVercel(ai, defaults?)`
+
+Instruments Vercel AI SDK's `generateText` and `streamText`. Compatible with v3, v4, and v5. Per-call context via the `llmargus` option on each call.
 
 ### `llmargus.withContext(ctx, fn)`
 
@@ -156,14 +179,22 @@ Runs `fn` with `ctx` available to all wrapped calls inside it. Uses `AsyncLocalS
 
 Manually enqueue a `CostEvent`. Useful for unsupported providers.
 
+### `llmargus.flush()`
+
+Drain the event queue immediately. Useful in tests and short-lived scripts.
+
+### `llmargus.shutdown()`
+
+Stop the background flush interval.
+
 ---
 
 ## How it works
 
-- Wraps your client using JavaScript's `Proxy` API — the original client is never mutated
 - Events are buffered in memory and flushed in batches every 2 seconds (configurable)
-- Flush also triggers on `process.beforeExit` to prevent event loss in serverless environments
+- Flush also triggers on `process.beforeExit` to prevent event loss in short-lived processes
 - Failures are swallowed silently — LLMargus never throws into your application
+- Cost is computed server-side from `(provider, model, tokensIn, tokensOut)` — you never pass a dollar amount
 
 ---
 
